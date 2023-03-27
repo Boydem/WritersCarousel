@@ -9,7 +9,7 @@ interface Props {
 
 const WriterPreview: NextPage<Props> = ({ writer }) => {
     return (
-        <li>
+        <article>
             <div className={styles['writer-preview']}>
                 <Image width={184} height={223} className={styles['writer-img']} src={writer.img_url} alt='writer' />
                 <h2>{writer.name}</h2>
@@ -19,7 +19,7 @@ const WriterPreview: NextPage<Props> = ({ writer }) => {
                     <li key={post.id}>לורם איפסום דולור סיט אמט, קנסטרקטר עלית גל'</li>
                 ))}
             </ul>
-        </li>
+        </article>
     )
 }
 

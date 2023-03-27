@@ -3,7 +3,6 @@ import { Inter } from 'next/font/google'
 import styles from '@/styles/Home.module.scss'
 import { GetServerSideProps } from 'next'
 import WritersCarousel from '@/components/WritersCarousel'
-
 const inter = Inter({ subsets: ['latin'] })
 
 export type Writer = {

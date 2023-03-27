@@ -1,15 +1,14 @@
-.writers-list {
-    display: flex;
-    transition: linear 0.2s;
-    scroll-behavior: smooth;
-    overflow-x: scroll;
-    scroll-snap-type: x mandatory;
-    gap: 0 $ITEM_GAP;
-    > li {
-        scroll-snap-align: start;
-        max-width: $PREVIEW_WIDTH;
-    }
-    &::-webkit-scrollbar {
-        display: none;
-    }
-}
+// .writers-list {
+//     display: flex;
+//     transition: linear 0.2s;
+//     scroll-behavior: smooth;
+//     overflow: hidden;
+//     scroll-snap-type: x mandatory;
+//     gap: 0 $ITEM_GAP;
+//     > li {
+//         scroll-snap-align: start;
+//     }
+//     &::-webkit-scrollbar {
+//         display: none;
+//     }
+// }
