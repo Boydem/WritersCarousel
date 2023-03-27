@@ -1,0 +1,105 @@
+.map-stay-preview {
+    width: 300px;
+    transform: translateX(-50%);
+    position: absolute;
+    top: 3rem;
+}
+
+.stay-preview {
+    animation: fade-in 0.3s ease-in-out;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    text-align: start;
+    border-radius: 1rem;
+    transition-duration: 200ms;
+    width: 100%;
+    background-color: #fff;
+    font-size: 1rem;
+    position: relative;
+    opacity: 0;
+    &.loaded {
+        opacity: 1;
+        transition-duration: 0.2s;
+        transition-property: opacity;
+    }
+    .meta {
+        font-size: 15px;
+
+        display: grid;
+        grid-template-columns: 1fr auto;
+        grid-template-areas:
+            'row1 rate'
+            'row2 rate'
+            'row3 rate';
+        gap: 2px 1rem;
+        justify-content: space-between;
+        .rate {
+            grid-area: rate;
+            span.flex {
+                gap: 0.5rem;
+            }
+        }
+        .name {
+            grid-area: row1;
+        }
+        .type {
+            grid-area: row2;
+            color: $gray-700;
+        }
+        .price {
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+            grid-area: row3;
+            margin-top: 0.5rem;
+            .price-suffix {
+                font-weight: 100;
+            }
+        }
+    }
+    &.map-view {
+        width: 100%;
+        .meta {
+            padding: 1rem;
+            padding-top: 0;
+        }
+        .img-carousel {
+            .images-container {
+                .carousel-item-container {
+                    @include aspect-ratio(6, 4);
+                }
+            }
+        }
+    }
+}
+
+// .stay-preview-wrapper {
+//     position: relative;
+
+//     &.fade-in {
+//         .skeleton-preview {
+//             opacity: 0;
+//             transition-delay: $delay;
+//         }
+
+//         .stay-preview {
+//             opacity: 1;
+//             position: absolute;
+//             top: 0;
+//             left: 0;
+//             right: 0;
+//             bottom: 0;
+//             animation: swap-preview 0.3s ease-in-out forwards;
+//         }
+//     }
+// }
+
+// @keyframes swap-preview {
+//     from {
+//         opacity: 0;
+//     }
+//     to {
+//         opacity: 1;
+//     }
+// }

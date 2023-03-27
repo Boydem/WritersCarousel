@@ -1,0 +1,68 @@
+.search-teaser {
+    border: 1px solid $gray-D;
+    border-radius: 55px;
+    box-shadow: 0 1px 2px rgb(0 0 0 / 8%), 0 4px 12px rgb(0 0 0 / 5%);
+    cursor: pointer;
+    display: flex;
+    font-size: 14px;
+
+    overflow: hidden;
+    button {
+        height: 3rem;
+        cursor: pointer;
+        border: 0;
+        outline: 0;
+        background-color: #fff;
+        color: $gray-200;
+        padding: 0;
+        span {
+            padding: 0 1rem;
+        }
+        .divider {
+            box-shadow: inset -1px 0px 0px 0px $gray-E;
+        }
+    }
+}
+
+.search-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    align-self: center;
+    height: max-content;
+    font-size: 1.25rem;
+    &.small {
+        scale: 0.7;
+        width: 3rem;
+    }
+    &:not(.btn-icon) {
+        padding: 12px 16px;
+    }
+    &.muted {
+        color: $gray-700;
+    }
+    &.btn-icon {
+        &.primary {
+            color: white;
+            background: $primary;
+            &.active {
+                background: $brand-gradient;
+            }
+        }
+        &.circled {
+            border-radius: 100px;
+        }
+    }
+}
+.search-teaser {
+    opacity: 1;
+    transition: all 0.25s ease-in-out;
+    transform: translateY(0%) scale(1);
+    pointer-events: all;
+    &.expanded {
+        transition: all 0.25s ease-in-out;
+        transform: translateY(calc(100% + 2rem)) scale(1.25);
+        opacity: 0;
+        pointer-events: none;
+    }
+}

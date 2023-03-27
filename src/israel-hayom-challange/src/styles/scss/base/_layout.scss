@@ -1,0 +1,19 @@
+$layout-padding-lg: 80px;
+$layout-padding-md: 40px;
+$layout-padding-sm: 24px;
+
+$main-break-md: 1440px;
+$break-sm: 740px;
+
+$secondary-break-md: 1280px;
+$secondary-break-sm: 1180px;
+
+.main-layout {
+    @include padding-layout($layout-padding-lg, $layout-padding-md, $layout-padding-sm);
+}
+
+.secondary-layout {
+    max-width: $secondary-break-md;
+    margin-inline: auto;
+    @include padding-layout($layout-padding-lg, $layout-padding-md, $layout-padding-sm);
+}

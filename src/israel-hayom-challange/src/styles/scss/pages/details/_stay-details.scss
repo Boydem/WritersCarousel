@@ -1,0 +1,15 @@
+.stay-details {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding-top: 2rem;
+    padding-bottom: 3rem;
+    > .stay-intro {
+        margin-bottom: 1rem;
+    }
+    .map-section,
+    .review-section {
+        padding: 3rem 0;
+        border-bottom: 1px solid $gray-E;
+    }
+}

@@ -1,0 +1,29 @@
+html,
+body {
+    height: 100%;
+    font-size: calc($base-font-size - 1px);
+    line-height: $base-font-ratio;
+    font-family: $base-font-family;
+    overflow-x: hidden;
+
+    // @media (min-width: $main-break-md) {
+    //     font-size: $base-font-size;
+    // }
+}
+
+body {
+    color: $base-text-color;
+}
+#root {
+    height: 100%;
+}
+.app {
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+.main-content {
+    flex: 1;
+    height: 100%;
+}

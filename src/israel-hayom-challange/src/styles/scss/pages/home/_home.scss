@@ -1,0 +1,48 @@
+.home {
+    grid-column: 1/-1;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    .filters {
+        padding-top: 0.5rem;
+        position: sticky;
+        top: $header-height-desktop;
+        background-color: #fff;
+        z-index: 1;
+    }
+    .stay-index {
+        flex: 1;
+        height: 100%;
+        .stay-list {
+            padding: 1.5rem 0;
+        }
+    }
+    .view-toggle-btn {
+        cursor: pointer;
+        position: fixed;
+        bottom: 6rem;
+        left: 50%;
+        transform: translateX(-50%);
+        border: 0;
+        background-color: $base-text-color;
+        color: $gray-F;
+        font-family: $font-family-medium;
+        font-weight: normal;
+        letter-spacing: -0.5px;
+        padding: 0.75rem 1.5rem;
+        border-radius: 5rem;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+    }
+    .home-footer {
+        font-size: 14px;
+        border-top: 1px solid $gray-E;
+        position: fixed;
+        bottom: 0;
+        background: white;
+        width: 100%;
+        padding-block: 1rem;
+    }
+}
