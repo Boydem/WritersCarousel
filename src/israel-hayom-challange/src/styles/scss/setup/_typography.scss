@@ -1,8 +1,22 @@
+@font-face {
+    font-family: 'Simpler-regular';
+    src: url('../../../fonts/SimplerPro/SimplerPro-Regular.ttf') format('truetype');
+}
+@font-face {
+    font-family: 'Simpler-black';
+    src: url('../../../fonts/SimplerPro/SimplerPro-Black.ttf') format('truetype');
+}
+@font-face {
+    font-family: 'Simpler-bold';
+    src: url('../../../fonts/SimplerPro/SimplerPro-Bold.ttf') format('truetype');
+}
+
 body {
     font-family: $base-font-family;
     font-size: $base-font-size;
     line-height: $base-font-ratio;
     color: $base-text-color;
+    letter-spacing: -0.24px;
 }
 
 h1,
@@ -11,6 +25,7 @@ h3,
 h4,
 h5,
 h6 {
+    font-family: 'Simpler-bold';
     font-weight: 400;
 }
 h1 {
