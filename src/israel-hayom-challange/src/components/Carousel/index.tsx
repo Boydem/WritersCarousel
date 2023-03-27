@@ -6,6 +6,7 @@ import { FaArrowRight, FaArrowLeft } from 'react-icons/fa'
 
 type Props = {
     slides: any[]
+    onFetchMore: () => void // callback to fetch more data
 }
 
 const settings = {
@@ -17,7 +18,7 @@ const settings = {
     swipeToSlide: true,
 }
 
-export const Carousel = ({ slides }: Props) => {
+export const Carousel = ({ slides, onFetchMore }: Props) => {
     const sliderRef = useRef<Slider>(null)
 
     const handleNext = () => {
@@ -38,9 +39,16 @@ export const Carousel = ({ slides }: Props) => {
         }
     }, [slides])
 
+    const handleAfterChange = (currentSlideIndex: number) => {
+        const threshold = 2 // set a threshold for when to fetch more data
+        if (currentSlideIndex >= slides.length - threshold) {
+            onFetchMore()
+        }
+    }
+
     return (
         <div className={styles.carousel}>
-            <Slider className={styles.slider} {...settings} ref={sliderRef}>
+            <Slider className={styles.slider} {...settings} ref={sliderRef} afterChange={handleAfterChange}>
                 {slides.map(slide => (
                     <div key={slide.id} className={styles['slider-item']}>
                         <WriterPreview writer={slide} />

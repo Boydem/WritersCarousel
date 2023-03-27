@@ -15,6 +15,7 @@ export type Writer = {
 }
 
 export default function Home(props: { writers: Writer[] }) {
+    console.log('props.writers:', props.writers)
     return (
         <>
             <Head>
@@ -35,7 +36,6 @@ export default function Home(props: { writers: Writer[] }) {
 export const getServerSideProps: GetServerSideProps = async ctx => {
     const res = await fetch('http://localhost/api/writers')
     const data = await res.json()
-
     return {
         props: {
             writers: data,

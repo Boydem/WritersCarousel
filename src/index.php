@@ -7,12 +7,19 @@ $dbname = "noam_israelhayom_db";
 // Create connection
 $conn = new mysqli($servername, $username, $password, $dbname);
 
+// Disable cors
+header('Access-Control-Allow-Origin: *');
+header("Access-Control-Allow-Headers: Content-Type");
+
 // Check connection
 if ($conn->connect_error) {
   die("Connection failed: " . $conn->connect_error);
 }
 
 if ($_SERVER['REQUEST_URI'] === '/api/writers') {
+  $page = isset($_GET['page']) ? intval($_GET['page']) : 1;
+  $pageSize = 9;
+  $start = ($page - 1) * $pageSize;
 
   $sql = "SELECT writer._id, writer.name, writer.img_url, post._id AS post_id, post.title, post.content, post.url, post.created_at
   FROM writer
@@ -30,8 +37,8 @@ if ($_SERVER['REQUEST_URI'] === '/api/writers') {
       GROUP BY writer._id
       HAVING COUNT(post._id) >= 3
   )
-  ORDER BY post.created_at DESC;";
-
+  ORDER BY post.created_at DESC
+  LIMIT $start, $pageSize;";
 
   $result = $conn->query($sql);
 
@@ -67,10 +74,8 @@ if ($_SERVER['REQUEST_URI'] === '/api/writers') {
       );
     }
   }
-
   header('Content-Type: application/json');
   echo json_encode(array_values($writers));
 }
-
 
 $conn->close();
