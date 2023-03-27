@@ -1,0 +1,19 @@
+.posts-list {
+    > li {
+        text-align: center;
+        &:first-child {
+            background-color: $lightgray-100;
+            padding: 9px 20px;
+            font-family: $font-family-bold;
+            margin-top: 1px;
+            font-size: 15px;
+        }
+        &:not(:first-child) {
+            color: $darkgray-200;
+            margin-top: 2px;
+            border: 1px solid $lightgray-200;
+            padding: 9px 15px;
+            font-size: 14px;
+        }
+    }
+}

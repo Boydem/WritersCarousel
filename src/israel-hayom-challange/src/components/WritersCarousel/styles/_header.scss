@@ -1,0 +1,29 @@
+.carousel-header {
+    position: relative;
+    border-radius: 3px;
+    background-color: $darkgray-100;
+    color: $white;
+    margin-bottom: 20px;
+    padding: 8px 28px 8px 32px;
+    font-weight: 600;
+    button {
+        color: $white;
+        border: 2px solid $white;
+        background-color: transparent;
+        font-size: 0.65rem;
+        width: 2rem;
+        height: 2rem;
+        justify-content: center;
+        border-radius: 55px;
+    }
+    &::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        right: 0;
+        display: block;
+        width: 10px;
+        height: 100%;
+        background-color: $primary;
+    }
+}

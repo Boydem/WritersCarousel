@@ -1,4 +1,9 @@
 // Font helpers
+.font-light {
+    font-family: $font-family-light;
+    font-weight: 100;
+    letter-spacing: -0.52px;
+}
 .font-bold {
     font-family: $font-family-bold;
     font-weight: 400;
