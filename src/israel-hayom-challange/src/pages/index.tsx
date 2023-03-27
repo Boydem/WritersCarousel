@@ -1,9 +1,6 @@
 import Head from 'next/head'
-import { Inter } from 'next/font/google'
-import styles from '@/styles/Home.module.scss'
 import { GetServerSideProps } from 'next'
 import WritersCarousel from '@/components/WritersCarousel'
-const inter = Inter({ subsets: ['latin'] })
 
 export type Writer = {
     id: string
@@ -26,7 +23,7 @@ export default function Home(props: { writers: Writer[] }) {
                 <meta name='viewport' content='width=device-width, initial-scale=1' />
                 <link rel='icon' href='/favicon.ico' />
             </Head>
-            <main className={styles.main}>
+            <main>
                 <WritersCarousel writers={props.writers} />
             </main>
         </>

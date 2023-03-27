@@ -1,4 +1,4 @@
-import { useRef } from 'react'
+import { useEffect, useRef } from 'react'
 import Slider from 'react-slick'
 import WriterPreview from '../WritersCarousel/parts/WriterPreview'
 import styles from './Carousel.module.scss'
@@ -12,8 +12,9 @@ const settings = {
     dots: false,
     arrows: false,
     infinite: true,
-    speed: 500,
     variableWidth: true,
+    slidesToScroll: 1,
+    swipeToSlide: true,
 }
 
 export const Carousel = ({ slides }: Props) => {
@@ -30,6 +31,12 @@ export const Carousel = ({ slides }: Props) => {
             sliderRef.current.slickPrev()
         }
     }
+
+    useEffect(() => {
+        if (sliderRef.current) {
+            sliderRef.current.slickGoTo(0)
+        }
+    }, [slides])
 
     return (
         <div className={styles.carousel}>

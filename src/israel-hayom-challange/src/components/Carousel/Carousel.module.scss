@@ -18,7 +18,9 @@ $ITEM_GAP: 10px;
         transition: 0.2s all;
         padding: 1rem;
         z-index: 2;
+        pointer-events: none;
         > button {
+            pointer-events: all;
             width: 2rem;
             height: 2rem;
             justify-content: center;
@@ -37,7 +39,10 @@ $ITEM_GAP: 10px;
 }
 .slider-item {
     margin-inline-start: 10px;
-    max-width: $PREVIEW_WIDTH;
+    max-width: 166px;
+    @media (min-width: 760px) {
+        max-width: $PREVIEW_WIDTH;
+    }
 }
 .slider {
     overflow: hidden;

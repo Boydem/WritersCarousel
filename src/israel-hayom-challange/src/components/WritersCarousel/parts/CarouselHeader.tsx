@@ -8,6 +8,7 @@ const CarouselHeader: NextPage<Props> = ({}) => {
             <h1>
                 <span className='font-light'>נבחרת</span>הכתבים
             </h1>
+            <button>{'>>'}</button>
         </section>
     )
 }
