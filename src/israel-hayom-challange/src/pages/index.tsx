@@ -13,8 +13,13 @@ export type Writer = {
         created_at: Date
     }[]
 }
+interface Props {
+    writers: Writer[]
+    totalPages: number
+    currentPage: number
+}
 
-export default function Home(props: { writers: Writer[] }) {
+export default function Home(props: Props) {
     console.log('props.writers:', props.writers)
     return (
         <>
@@ -25,7 +30,7 @@ export default function Home(props: { writers: Writer[] }) {
                 <link rel='icon' href='/favicon.ico' />
             </Head>
             <main>
-                <WritersCarousel writers={props.writers} />
+                <WritersCarousel writers={props.writers} totalPages={props.totalPages} currPage={props.currentPage} />
             </main>
         </>
     )
@@ -39,6 +44,8 @@ export const getServerSideProps: GetServerSideProps = async ctx => {
     return {
         props: {
             writers: data.writers,
+            totalPages: data.totalPages,
+            currentPage: data.currentPage,
         },
     }
 }

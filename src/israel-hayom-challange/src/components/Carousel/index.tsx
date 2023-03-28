@@ -40,7 +40,7 @@ export const Carousel = ({ slides, onFetchMore }: Props) => {
     }, [])
 
     const handleAfterChange = (currentSlideIndex: number) => {
-        const threshold = 1 // set a threshold for when to fetch more data
+        const threshold = 2 // set a threshold for when to fetch more data
         if (currentSlideIndex >= slides.length - threshold) {
             onFetchMore()
         }

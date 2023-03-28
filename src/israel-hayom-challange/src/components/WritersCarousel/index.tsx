@@ -8,18 +8,22 @@ import { Carousel } from '../Carousel'
 
 interface Props {
     writers: Writer[]
+    currPage: number
+    totalPages: number
 }
 
-export const WritersCarousel: NextPage<Props> = ({ writers }) => {
-    const [currentPage, setCurrentPage] = useState(1)
+export const WritersCarousel: NextPage<Props> = ({ writers, currPage, totalPages }) => {
+    const [currentPage, setCurrentPage] = useState(currPage || 0)
     const [loadedWriters, setLoadedWriters] = useState(writers)
+
     const onFetchMore = async () => {
+        if (currentPage === totalPages) return
         try {
             const res = await fetch(`http://localhost/api/writers?page=${currentPage + 1}`)
             const data = await res.json()
-            console.log('data:', data)
+            const { writers: moreWriters } = data
             setCurrentPage(currentPage + 1)
-            setLoadedWriters([...loadedWriters, ...data])
+            setLoadedWriters(prevWriters => [...prevWriters, ...moreWriters])
         } catch (err) {
             console.log('err:', err)
         }
