@@ -25,7 +25,6 @@ export const Carousel = <T extends {}>({ slides, onFetchMore, renderSlide, setti
 
     const handleAfterChange = (currentSlideIndex: number) => {
         const threshold = 1
-        console.log('currentSlideIndex:', currentSlideIndex)
         if (currentSlideIndex === slides.length - threshold) {
             onFetchMore()
         }
