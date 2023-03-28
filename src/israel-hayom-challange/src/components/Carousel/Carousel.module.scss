@@ -37,16 +37,17 @@ $ITEM_GAP: 10px;
         opacity: 1;
     }
 }
+.slider {
+    overflow: hidden;
+    > div {
+        margin-inline: -10px;
+    }
+}
+
 .slider-item {
     margin-inline-start: 10px;
     max-width: 166px;
     @media (min-width: 760px) {
         max-width: $PREVIEW_WIDTH;
-    }
-}
-.slider {
-    overflow: hidden;
-    > div {
-        margin-inline-start: -10px;
     }
 }

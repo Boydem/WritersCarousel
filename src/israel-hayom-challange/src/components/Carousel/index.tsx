@@ -13,27 +13,20 @@ interface Props<T> {
 export const Carousel = <T extends {}>({ slides, onFetchMore, renderSlide, settings }: Props<T>) => {
     const sliderRef = useRef<Slider>(null)
 
-    const handleNext = () => {
+    const handleNextPrev = (direction: 'next' | 'prev') => {
         if (sliderRef.current) {
-            sliderRef.current.slickNext()
+            if (direction === 'next') {
+                sliderRef.current.slickNext()
+            } else {
+                sliderRef.current.slickPrev()
+            }
         }
     }
-
-    const handlePrev = () => {
-        if (sliderRef.current) {
-            sliderRef.current.slickPrev()
-        }
-    }
-
-    useEffect(() => {
-        if (sliderRef.current) {
-            sliderRef.current.slickGoTo(0)
-        }
-    }, [])
 
     const handleAfterChange = (currentSlideIndex: number) => {
-        const threshold = 2
-        if (currentSlideIndex >= slides.length - threshold) {
+        const threshold = 1
+        console.log('currentSlideIndex:', currentSlideIndex)
+        if (currentSlideIndex === slides.length - threshold) {
             onFetchMore()
         }
     }
@@ -48,10 +41,10 @@ export const Carousel = <T extends {}>({ slides, onFetchMore, renderSlide, setti
                 ))}
             </Slider>
             <div className={styles.navigation}>
-                <button onClick={handleNext}>
+                <button onClick={() => handleNextPrev('next')}>
                     <FaArrowRight />
                 </button>
-                <button onClick={handlePrev}>
+                <button onClick={() => handleNextPrev('prev')}>
                     <FaArrowLeft />
                 </button>
             </div>

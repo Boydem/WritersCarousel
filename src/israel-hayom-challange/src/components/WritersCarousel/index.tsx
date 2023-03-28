@@ -1,12 +1,12 @@
 import { NextPage } from 'next'
 import { useState } from 'react'
 import styles from './WritersCarousel.module.scss'
-import { httpService } from '@/services/httpsService.service'
 import { AiOutlineExclamationCircle } from 'react-icons/ai'
 import CarouselHeader from './parts/CarouselHeader'
 import { Carousel } from '../Carousel'
 import WriterPreview from './parts/WriterPreview'
 import { Writer } from '@/interfaces/writer.model'
+import { writerService } from '@/services/writer.service'
 
 interface Props {
     writers?: Writer[]
@@ -19,19 +19,21 @@ const CAROUSEL_SETTINGS = {
     arrows: false,
     infinite: true,
     variableWidth: true,
-    slidesToScroll: 1,
+    speed: 650,
+    slidesToScroll: 3,
     swipeToSlide: true,
     rtl: true,
+    initialSlide: 0,
 }
 
 export const WritersCarousel: NextPage<Props> = ({ writers, currPage, totalPages }) => {
     const [currentPage, setCurrentPage] = useState(currPage || 0)
     const [loadedWriters, setLoadedWriters] = useState<Writer[] | []>(writers || [])
-    console.log('loadedWriters:', loadedWriters)
+
     const onFetchMore = async () => {
         if (currentPage === totalPages) return
         try {
-            const data = await httpService.get(`writers?page=${currentPage + 1}`)
+            const data = await writerService.loadMoreWriters(currentPage + 1)
             const { writers: moreWriters } = data
             setCurrentPage(currentPage + 1)
             setLoadedWriters(prevWriters => [...prevWriters, ...moreWriters])

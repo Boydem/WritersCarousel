@@ -1,8 +1,9 @@
 import Head from 'next/head'
 import { GetServerSideProps } from 'next'
 import WritersCarousel from '@/components/WritersCarousel'
-import { httpService } from '@/services/httpsService.service'
+import { httpService } from '@/services/http.service'
 import { Writer } from '@/interfaces/writer.model'
+import { writerService } from '@/services/writer.service'
 
 interface Props {
     writers: Writer[]
@@ -26,11 +27,9 @@ export default function Home(props: Props) {
     )
 }
 
-// You should use getServerSideProps when:
-// - Only if you need to pre-render a page whose data must be fetched at request time
-export const getServerSideProps: GetServerSideProps = async ctx => {
+export const getServerSideProps: GetServerSideProps = async () => {
     try {
-        const data = await httpService.get('writers')
+        const data = await writerService.loadWriters()
         return {
             props: {
                 writers: data.writers || [],
@@ -39,7 +38,6 @@ export const getServerSideProps: GetServerSideProps = async ctx => {
             },
         }
     } catch (err) {
-        console.log('err:', err)
         return {
             props: {
                 writers: [],

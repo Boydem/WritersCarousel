@@ -1,4 +1,4 @@
-export type Writer = {
+export interface Writer {
     id: string
     name: string
     img_url: string

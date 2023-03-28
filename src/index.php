@@ -17,7 +17,7 @@ if ($conn->connect_error) {
 }
 
 if (strpos($_SERVER['REQUEST_URI'], '/api/writers') === 0) {
-  $pageSize = 5;
+  $pageSize = 7;
   $currentPage = isset($_GET['page']) ? intval($_GET['page']) : 1;
   $start = ($currentPage - 1) * $pageSize;
 
