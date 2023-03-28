@@ -16,32 +16,40 @@ if ($conn->connect_error) {
   die("Connection failed: " . $conn->connect_error);
 }
 
-if ($_SERVER['REQUEST_URI'] === '/api/writers') {
-  $page = isset($_GET['page']) ? intval($_GET['page']) : 1;
-  $pageSize = 9;
-  $start = ($page - 1) * $pageSize;
+if (strpos($_SERVER['REQUEST_URI'], '/api/writers') === 0) {
+  $pageSize = 5;
+  $currentPage = isset($_GET['page']) ? intval($_GET['page']) : 1;
+  $start = ($currentPage - 1) * $pageSize;
 
+  // Query writers with 3 most recent posts from the last 2 weeks
   $sql = "SELECT writer._id, writer.name, writer.img_url, post._id AS post_id, post.title, post.content, post.url, post.created_at
-  FROM writer
+  FROM (
+    SELECT DISTINCT writer._id
+    FROM writer
+    INNER JOIN post
+    ON writer._id = post.writer_id
+    WHERE post.created_at >= DATE_SUB(NOW(), INTERVAL 2 WEEK)
+    GROUP BY writer._id
+    HAVING COUNT(DISTINCT post._id) >= 3
+    ORDER BY MIN(post.created_at) DESC
+    LIMIT ? , ?
+  ) AS selected_writers
   INNER JOIN (
-      SELECT post.*, ROW_NUMBER() OVER (PARTITION BY writer_id ORDER BY created_at DESC) AS row_num
-      FROM post
-      WHERE created_at >= DATE_SUB(NOW(), INTERVAL 2 WEEK)
-  ) AS post ON writer._id = post.writer_id AND post.row_num <= 3
-  WHERE writer._id IN (
-      SELECT writer._id
-      FROM writer
-      INNER JOIN post
-      ON writer._id = post.writer_id
-      WHERE post.created_at >= DATE_SUB(NOW(), INTERVAL 2 WEEK)
-      GROUP BY writer._id
-      HAVING COUNT(post._id) >= 3
-  )
+    SELECT post.*, ROW_NUMBER() OVER (PARTITION BY writer_id ORDER BY created_at DESC) AS row_num
+    FROM post
+    WHERE created_at >= DATE_SUB(NOW(), INTERVAL 2 WEEK)
+  ) AS post ON selected_writers._id = post.writer_id AND row_num <= 3
+  INNER JOIN writer ON selected_writers._id = writer._id
   ORDER BY post.created_at DESC
-  LIMIT $start, $pageSize;";
+  ";
 
-  $result = $conn->query($sql);
 
+  $writers = array();
+
+  $stmt = $conn->prepare($sql);
+  $stmt->bind_param("ii", $start, $pageSize);
+  $stmt->execute();
+  $result = $stmt->get_result();
   $writers = array();
 
   if ($result->num_rows > 0) {
@@ -74,8 +82,29 @@ if ($_SERVER['REQUEST_URI'] === '/api/writers') {
       );
     }
   }
+
+  // Count total number of rows
+  $countSql = "SELECT COUNT(*) as total FROM (
+    SELECT writer._id
+    FROM writer
+    INNER JOIN post
+    ON writer._id = post.writer_id
+    WHERE post.created_at >= DATE_SUB(NOW(), INTERVAL 2 WEEK)
+    GROUP BY writer._id
+    HAVING COUNT(DISTINCT post._id) >= 3
+  ) AS total";
+
+  $countResult = $conn->query($countSql);
+  $totalCount = $countResult->fetch_assoc()['total'];
+
+  $totalPages = ceil($totalCount / $pageSize);
+
   header('Content-Type: application/json');
-  echo json_encode(array_values($writers));
+  echo json_encode(array(
+    'currentPage' => $currentPage,
+    'totalPages' => $totalPages,
+    'writers' => array_values($writers),
+  ));
 }
 
 $conn->close();

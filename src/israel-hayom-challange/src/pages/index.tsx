@@ -38,7 +38,7 @@ export const getServerSideProps: GetServerSideProps = async ctx => {
     const data = await res.json()
     return {
         props: {
-            writers: data,
+            writers: data.writers,
         },
     }
 }

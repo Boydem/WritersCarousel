@@ -13,19 +13,22 @@ interface Props {
 export const WritersCarousel: NextPage<Props> = ({ writers }) => {
     const [currentPage, setCurrentPage] = useState(1)
     const [loadedWriters, setLoadedWriters] = useState(writers)
-
     const onFetchMore = async () => {
-        const res = await fetch(`http://localhost/api/writers?page=${currentPage + 1}`)
-        const data = await res.json()
-
-        setCurrentPage(currentPage + 1)
-        setLoadedWriters([...loadedWriters, ...data])
+        try {
+            const res = await fetch(`http://localhost/api/writers?page=${currentPage + 1}`)
+            const data = await res.json()
+            console.log('data:', data)
+            setCurrentPage(currentPage + 1)
+            setLoadedWriters([...loadedWriters, ...data])
+        } catch (err) {
+            console.log('err:', err)
+        }
     }
 
     return (
         <div className={styles['writers-carousel']}>
             <CarouselHeader />
-            <Carousel onFetchMore={onFetchMore} slides={writers} />
+            <Carousel onFetchMore={onFetchMore} slides={loadedWriters} />
         </div>
     )
 }
