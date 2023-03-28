@@ -19,23 +19,25 @@ Before proceeding with the installation, make sure you have the following instal
 - ``git clone https://github.com/Boydem/WritersCarousel``
 2. Open the repo directory in VSCode and load Docker's containers
 - ``docker-compose up -d``
-3. Run this command to create the db
-- ``docker exec -it israelhayom-mysql-1 mysql -u root -psecret -e 'CREATE DATABASE IF NOT EXISTS noam_israelhayom_db'``
-4. Open src/israel-hayom-challange Which is the directory including Next app and run it typing:
+3. Open src/israel-hayom-challange Which is the directory including Next app and run it typing:
 - ``npm run dev``
-5. Navigate to
+4. Navigate to
 - ``localhost:3000``
-6. To add db content open phpmyadmin through
+5. To add db content open phpmyadmin through
 - ``localhost:81``
 - Login using these credentials:
 - Server: mysql / Username: root / password: secret
 ![image](https://user-images.githubusercontent.com/93376408/228273083-4bc4abf6-a6c0-4e02-94b0-e71aeb55f817.png)
 
-7. Go to ``noam_israelhayom_db``
+6. Go to ``noam_israelhayom_db``
 ![image](https://user-images.githubusercontent.com/93376408/228273476-49645805-52bb-482a-b493-596650f6f9bc.png)
 
-8. Insert SQL command from dump.sql:
+7. Load Data:
+- Go to Insert SQL
+- ![image](https://user-images.githubusercontent.com/93376408/228276092-f8fa5145-6638-4b94-a900-9c24193d8aa4.png)
 - Inside the repo folder there is dump.sql file that contains the tables and their data, paste its content and run this SQL command:
 - ![image](https://user-images.githubusercontent.com/93376408/228274366-3f17a9ae-cc4c-497a-8e32-d6376bb43d6e.png)
-- ![image](https://user-images.githubusercontent.com/93376408/228274128-13a0c89e-4551-479c-ab7c-92511a9eadc2.png)
+- ![image](https://user-images.githubusercontent.com/93376408/228275417-a8613623-2feb-4461-8de3-ed1a09f02ace.png)
 
+
+You should now see the data arrived to ``localhost:3000``
