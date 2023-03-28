@@ -1,24 +1,16 @@
-import { useEffect, useRef } from 'react'
-import Slider from 'react-slick'
-import WriterPreview from '../WritersCarousel/parts/WriterPreview'
+import { ComponentType, useEffect, useRef } from 'react'
+import Slider, { Settings } from 'react-slick'
 import styles from './Carousel.module.scss'
 import { FaArrowRight, FaArrowLeft } from 'react-icons/fa'
 
-type Props = {
-    slides: any[]
-    onFetchMore: () => void // callback to fetch more data
+interface Props<T> {
+    slides: T[]
+    onFetchMore: () => void
+    renderSlide: (slide: T, index: number) => React.ReactNode
+    settings: Settings
 }
 
-const settings = {
-    dots: false,
-    arrows: false,
-    infinite: true,
-    variableWidth: true,
-    slidesToScroll: 1,
-    swipeToSlide: true,
-}
-
-export const Carousel = ({ slides, onFetchMore }: Props) => {
+export const Carousel = <T extends {}>({ slides, onFetchMore, renderSlide, settings }: Props<T>) => {
     const sliderRef = useRef<Slider>(null)
 
     const handleNext = () => {
@@ -40,7 +32,7 @@ export const Carousel = ({ slides, onFetchMore }: Props) => {
     }, [])
 
     const handleAfterChange = (currentSlideIndex: number) => {
-        const threshold = 2 // set a threshold for when to fetch more data
+        const threshold = 2
         if (currentSlideIndex >= slides.length - threshold) {
             onFetchMore()
         }
@@ -49,9 +41,9 @@ export const Carousel = ({ slides, onFetchMore }: Props) => {
     return (
         <div className={styles.carousel}>
             <Slider className={styles.slider} {...settings} ref={sliderRef} afterChange={handleAfterChange}>
-                {slides.map(slide => (
-                    <div key={slide.id} className={styles['slider-item']}>
-                        <WriterPreview writer={slide} />
+                {slides.map((slide, index) => (
+                    <div key={index} className={styles['slider-item']}>
+                        {renderSlide(slide, index)}
                     </div>
                 ))}
             </Slider>

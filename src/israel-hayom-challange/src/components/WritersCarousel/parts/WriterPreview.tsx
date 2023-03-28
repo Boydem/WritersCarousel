@@ -1,4 +1,4 @@
-import { Writer } from '@/pages'
+import { Writer } from '@/interfaces/writer.model'
 import { NextPage } from 'next'
 import Image from 'next/image'
 import styles from '../WritersCarousel.module.scss'
@@ -9,7 +9,7 @@ interface Props {
 const IMG_MAX_WIDTH = 184,
     IMG_MAX_HEIGHT = 223
 
-const WriterPreview: NextPage<Props> = ({ writer }) => {
+const WriterPreview: React.FC<Props> = ({ writer }) => {
     return (
         <article>
             <div className={styles['writer-preview']}>

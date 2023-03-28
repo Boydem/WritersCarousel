@@ -2,18 +2,8 @@ import Head from 'next/head'
 import { GetServerSideProps } from 'next'
 import WritersCarousel from '@/components/WritersCarousel'
 import { httpService } from '@/services/httpsService.service'
+import { Writer } from '@/interfaces/writer.model'
 
-export type Writer = {
-    id: string
-    name: string
-    img_url: string
-    posts: {
-        id: string
-        title: string
-        content: string
-        created_at: Date
-    }[]
-}
 interface Props {
     writers: Writer[]
     totalPages: number
@@ -21,7 +11,6 @@ interface Props {
 }
 
 export default function Home(props: Props) {
-    console.log('props.writers:', props.writers)
     return (
         <>
             <Head>
@@ -44,13 +33,19 @@ export const getServerSideProps: GetServerSideProps = async ctx => {
         const data = await httpService.get('writers')
         return {
             props: {
-                writers: data.writers,
-                totalPages: data.totalPages,
-                currentPage: data.currentPage,
+                writers: data.writers || [],
+                totalPages: data.totalPages || 0,
+                currentPage: data.currentPage || 0,
             },
         }
     } catch (err) {
         console.log('err:', err)
-        throw new Error('Failed to fetch data')
+        return {
+            props: {
+                writers: [],
+                totalPages: 0,
+                currentPage: 0,
+            },
+        }
     }
 }

@@ -1,22 +1,33 @@
-import { Writer } from '@/pages'
 import { NextPage } from 'next'
-import { UIEventHandler, useRef, useState, useEffect } from 'react'
+import { useState } from 'react'
 import styles from './WritersCarousel.module.scss'
-
+import { httpService } from '@/services/httpsService.service'
+import { AiOutlineExclamationCircle } from 'react-icons/ai'
 import CarouselHeader from './parts/CarouselHeader'
 import { Carousel } from '../Carousel'
-import { httpService } from '@/services/httpsService.service'
+import WriterPreview from './parts/WriterPreview'
+import { Writer } from '@/interfaces/writer.model'
 
 interface Props {
-    writers: Writer[]
+    writers?: Writer[]
     currPage: number
     totalPages: number
 }
 
+const CAROUSEL_SETTINGS = {
+    dots: false,
+    arrows: false,
+    infinite: true,
+    variableWidth: true,
+    slidesToScroll: 1,
+    swipeToSlide: true,
+    rtl: true,
+}
+
 export const WritersCarousel: NextPage<Props> = ({ writers, currPage, totalPages }) => {
     const [currentPage, setCurrentPage] = useState(currPage || 0)
-    const [loadedWriters, setLoadedWriters] = useState(writers)
-
+    const [loadedWriters, setLoadedWriters] = useState<Writer[] | []>(writers || [])
+    console.log('loadedWriters:', loadedWriters)
     const onFetchMore = async () => {
         if (currentPage === totalPages) return
         try {
@@ -32,7 +43,18 @@ export const WritersCarousel: NextPage<Props> = ({ writers, currPage, totalPages
     return (
         <div className={styles['writers-carousel']}>
             <CarouselHeader />
-            <Carousel onFetchMore={onFetchMore} slides={loadedWriters} />
+            {loadedWriters && loadedWriters.length ? (
+                <Carousel
+                    settings={CAROUSEL_SETTINGS}
+                    renderSlide={(slide: Writer, index: number) => <WriterPreview key={index} writer={slide} />}
+                    onFetchMore={onFetchMore}
+                    slides={loadedWriters}
+                />
+            ) : (
+                <p className={styles.error}>
+                    <AiOutlineExclamationCircle size={'1.125rem'} /> לא נמצאו כותבים לתצוגה
+                </p>
+            )}
         </div>
     )
 }
