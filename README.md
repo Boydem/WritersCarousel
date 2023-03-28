@@ -20,7 +20,7 @@ Before proceeding with the installation, make sure you have the following instal
 2. Open the repo directory in VSCode and load Docker's containers
 - ``docker-compose up -d``
 3. Open src/israel-hayom-challange Which is the directory including Next app and run it typing:
-- ``npm run dev``
+- ``npm i && npm run dev``
 4. Navigate to
 - ``localhost:3000``
 5. To add db content open phpmyadmin through
