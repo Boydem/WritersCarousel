@@ -24,7 +24,7 @@ const WriterPreview: NextPage<Props> = ({ writer }) => {
             </div>
             <ul className={`${styles['posts-list']} flex column clean-list`}>
                 {writer.posts.map(post => (
-                    <li key={post.id}>לורם איפסום דולור סיט אמט, קנסטרקטר עלית</li>
+                    <li key={post.id}>{post.content}</li>
                 ))}
             </ul>
         </article>

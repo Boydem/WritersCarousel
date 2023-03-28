@@ -1,6 +1,7 @@
 import Head from 'next/head'
 import { GetServerSideProps } from 'next'
 import WritersCarousel from '@/components/WritersCarousel'
+import { httpService } from '@/services/httpsService.service'
 
 export type Writer = {
     id: string
@@ -39,13 +40,17 @@ export default function Home(props: Props) {
 // You should use getServerSideProps when:
 // - Only if you need to pre-render a page whose data must be fetched at request time
 export const getServerSideProps: GetServerSideProps = async ctx => {
-    const res = await fetch('http://localhost/api/writers')
-    const data = await res.json()
-    return {
-        props: {
-            writers: data.writers,
-            totalPages: data.totalPages,
-            currentPage: data.currentPage,
-        },
+    try {
+        const data = await httpService.get('writers')
+        return {
+            props: {
+                writers: data.writers,
+                totalPages: data.totalPages,
+                currentPage: data.currentPage,
+            },
+        }
+    } catch (err) {
+        console.log('err:', err)
+        throw new Error('Failed to fetch data')
     }
 }
