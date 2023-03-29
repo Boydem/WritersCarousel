@@ -23,7 +23,21 @@ const CAROUSEL_SETTINGS = {
     slidesToScroll: 3,
     swipeToSlide: true,
     rtl: true,
-    initialSlide: 0,
+    initialSlide: 4,
+    responsive: [
+        {
+            breakpoint: 600,
+            settings: {
+                slidesToScroll: 2,
+            },
+        },
+        {
+            breakpoint: 480,
+            settings: {
+                slidesToScroll: 1,
+            },
+        },
+    ],
 }
 
 export const WritersCarousel: NextPage<Props> = ({ writers, currPage, totalPages }) => {
