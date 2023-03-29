@@ -7,7 +7,6 @@ This repository is a web application built with NextJS as the frontend, PHP and 
 ### Mobile
 ![image](https://user-images.githubusercontent.com/93376408/228212084-b5a6bca1-ad68-450d-8dd9-f7d3428c9014.png)
 
-
 ## Prerequisites
 Before proceeding with the installation, make sure you have the following installed on your machine:
 
@@ -41,3 +40,12 @@ Before proceeding with the installation, make sure you have the following instal
 
 
 You should now see the data arrived to ``localhost:3000``
+
+## Sources:
+- react-slick (Carousel component)
+- axios (used inside httpService)
+- sass - used for styles
+
+## Front Services:
+- writerService - Responsible for 'writer' entity and managin the communication between the View and the Http service
+- httpService - Responsible for managing the communication between the client services and the server
