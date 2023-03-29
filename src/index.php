@@ -41,7 +41,7 @@ INNER JOIN (
   WHERE created_at >= DATE_SUB(NOW(), INTERVAL 2 WEEK)
 ) AS post ON selected_writers._id = post.writer_id AND row_num <= 3
 INNER JOIN writer ON selected_writers._id = writer._id
-ORDER BY post.created_at DESC";
+ORDER BY writer.name ASC";
 
 
   $writers = array();
